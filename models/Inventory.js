@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const medication = require('./Medication');
+const Medication = require('./Medication');
 
 const Inventory = sequelize.define('inventory', {
   inventory_id: {
@@ -20,16 +20,13 @@ const Inventory = sequelize.define('inventory', {
     medication_id: {
     type: DataTypes.INTEGER,
     references: {
-        model: medication,
+        model: Medication,
         key: 'medication_id',
     },
     },
-  created_at: {
-    type: DataTypes.DATE,
-  },
-  updated_at: {
-    type: DataTypes.DATE,
-  },
 });
+
+//foreign key
+Inventory.belongsTo(Medication, { foreignKey: 'medication_id' });
 
 module.exports = Inventory;

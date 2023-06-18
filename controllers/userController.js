@@ -25,6 +25,33 @@ const createUser = async (req, res) => {
     }
 }
 
+const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({
+            where: { email: email, password: password },
+            include: [
+                {
+                    model: Role,
+                    attributes: ['type'],
+                },
+                {
+                    model: UserPhone,
+                    attributes: ['phone'],
+                },
+            ],
+        });
+        if (user) {
+            res.status(200).json({ user });
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+        
+
 //give user a role
 const giveRole = async (req, res) => {
     try {
@@ -117,6 +144,7 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
     createUser,
+    login,
     giveRole,
     getAllUsers,
     getUserById,

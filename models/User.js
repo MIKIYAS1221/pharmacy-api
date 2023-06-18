@@ -23,9 +23,6 @@ const User = sequelize.define('user', {
   email: {
     type: DataTypes.STRING(100),
   },
-  started_at: {
-    type: DataTypes.DATE,
-  },
   date_of_birth: {
     type: DataTypes.DATEONLY,
   },
@@ -37,5 +34,7 @@ const User = sequelize.define('user', {
     },
   },
 });
+
+User.belongsTo(Role, { foreignKey: 'role_id' });
 
 module.exports = User;

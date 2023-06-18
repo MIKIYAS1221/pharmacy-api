@@ -32,5 +32,4 @@ const Patient = sequelize.define('patient', {
     type: DataTypes.STRING(255),
   },
 });
-
 module.exports = Patient;

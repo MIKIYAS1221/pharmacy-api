@@ -17,6 +17,12 @@ app.use(express.json());
 // Add other routes...
 app.use('/roles', require('./routes/roleRoutes'));
 app.use('/users', require('./routes/userRoutes'));
+app.use('/categories',require('./routes/categoryRoutes'));
+app.use('/medications',require('./routes/medicationRoutes'));
+app.use('/sales',require('./routes/saleRoutes'));
+app.use('/purchaseorders',require('./routes/purchaseOrderRoutes'));
+app.use('/patients',require('./routes/patientRoutes'));
+app.use('/suppliers',require('./routes/supplierRoutes'));
 
 // Start the server
 const PORT = process.env.PORT || 5000;

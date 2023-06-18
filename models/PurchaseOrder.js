@@ -21,9 +21,6 @@ const PurchaseOrder = sequelize.define('purchase_order', {
         key: 'supplier_id',
     },
 },
-  created_at: {
-    type: DataTypes.DATE,
-  },
   quantity: {
     type: DataTypes.INTEGER,
   },
@@ -32,5 +29,7 @@ const PurchaseOrder = sequelize.define('purchase_order', {
     defaultValue: 'pending',
   },
 });
+
+PurchaseOrder.belongsTo(Supplier, { foreignKey: 'supplier_id' });
 
 module.exports = PurchaseOrder;

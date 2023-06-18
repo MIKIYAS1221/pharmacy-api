@@ -38,12 +38,14 @@ const Prescription = sequelize.define('prescription', {
         key: 'medication_id',
     },
     },
-  created_at: {
-    type: DataTypes.DATE,
-  },
-  updated_at: {
-    type: DataTypes.DATE,
-  },
-});
+  });
+
+  Prescription.belongsTo(Patient, {
+    foreignKey: 'patient_id',
+  });
+
+  Prescription.belongsTo(Medication, {
+    foreignKey: 'medication_id',
+  });
 
 module.exports = Prescription;

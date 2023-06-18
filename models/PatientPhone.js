@@ -15,6 +15,11 @@ const PatientPhone = sequelize.define('patient_phone', {
   },
   //both of these are required to make the primary key
 });
+
+Patient.belongsTo(PatientPhone, {
+  foreignKey: 'patient_id',
+});
+
 this.primaryKeyAttributes=['patient_id', 'phone'];
 
 module.exports = PatientPhone;

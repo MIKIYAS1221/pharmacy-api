@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const category = require('./Category');
+const Category = require('./Category');
 
 const Medication = sequelize.define('medication', {
   medication_id: {
@@ -23,7 +23,7 @@ const Medication = sequelize.define('medication', {
   category_id: {
     type: DataTypes.INTEGER,
     references: {
-        model: category,
+        model: Category,
         key: 'category_id',
     },
     },
@@ -36,9 +36,10 @@ const Medication = sequelize.define('medication', {
   product_code: {
     type: DataTypes.STRING(100),
   },
-  created_at: {
-    type: DataTypes.DATE,
-  },
+});
+
+Medication.belongsTo(Category, {
+  foreignKey: 'category_id',
 });
 
 module.exports = Medication;

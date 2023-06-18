@@ -13,12 +13,6 @@ const Category = sequelize.define('category', {
   description: {
     type: DataTypes.STRING(255),
   },
-  created_at: {
-    type: DataTypes.DATE,
-  },
-  updated_at: {
-    type: DataTypes.DATE,
-  },
 });
 
 module.exports = Category;

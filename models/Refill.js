@@ -4,15 +4,8 @@ const Prescription = require('./Prescription');
 const Patient = require('./Patient');
 
 const Refill = sequelize.define('refill', {
-  updated_at: {
-    type: DataTypes.DATE,
-    primaryKey: true,
-  },
   date_despended: {
     type: DataTypes.DATEONLY,
-  },
-  created_at: {
-    type: DataTypes.DATE,
   },
   prescription_id: {
     type: DataTypes.INTEGER,
@@ -21,13 +14,17 @@ const Refill = sequelize.define('refill', {
       key: 'prescription_id',
     },
   },
-    patient_id: {
+  patient_id: {
     type: DataTypes.INTEGER,
     references: {
-        model: Patient,
-        key: 'patient_id',
+      model: Patient,
+      key: 'patient_id',
     },
-    },
+  },
+});
+
+Refill.belongsTo(Prescription, {
+  foreignKey: 'prescription_id',
 });
 
 module.exports = Refill;

@@ -18,8 +18,8 @@ const Sale = sequelize.define('sale', {
   sale_date: {
     type: DataTypes.DATEONLY,
   },
-  medication_ids: {
-    type: DataTypes.ARRAY(DataTypes.INTEGER),
+  medication_id: {
+    type: DataTypes.INTEGER,
     references: {
       model: Medication,
       key: 'medication_id',
@@ -32,13 +32,13 @@ const Sale = sequelize.define('sale', {
       key: 'patient_id',
     },
   },
-  created_at: {
-    type: DataTypes.DATE,
-  },
   status: {
     type: DataTypes.STRING(50),
     defaultValue: 'pending',
   },
 });
+
+Sale.belongsTo(Medication, { foreignKey: 'medication_id' });
+Sale.belongsTo(Patient, { foreignKey: 'patient_id' });
 
 module.exports = Sale;

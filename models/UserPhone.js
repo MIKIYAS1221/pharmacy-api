@@ -16,4 +16,8 @@ const UserPhone = sequelize.define('user_phone', {
 });
 this.primaryKeyAttributes=['user_id', 'phone'];
 
+UserPhone.belongsTo(User, {
+  foreignKey: 'user_id',
+});
+
 module.exports = UserPhone;
