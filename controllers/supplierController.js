@@ -5,7 +5,7 @@ const SupplierPhone = require('../models/SupplierPhone');
 
 const createSupplier = async (req, res) => {
     try {
-        const supplier = await Supplier.create(req.body);
+        const supplier = await Supplier.create(req.body.supplier);
         const phone = await SupplierPhone.create({
             phone: req.body.phone,
             supplier_id: supplier.id,

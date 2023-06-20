@@ -1,9 +1,24 @@
 const Medication = require('../models/Medication');
 const Category = require('../models/Category');
+const Inventory = require('../models/Inventory');   
 
 const createMedication = async (req, res) => {
     try {
-        const medication = await Medication.create(req.body);
+        const medication = await Medication.create(req.body.user);
+        const inventory = await Inventory.create(req.body.inventory);
+        const newMedication = await Medication.findOne({
+            where: { medication_id: medication.medication_id },
+            include: [
+                {
+                    model: Inventory,
+                    attributes: ['Quantity', 'record_threshold', 'expiry_date'],
+                },
+                {
+                    model: Category,
+                    attributes: ['name'],
+                }
+            ],
+        });
         res.status(201).json({ medication });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -18,6 +33,10 @@ const getAllMedications = async (req, res) => {
                     model: Category,
                     attributes: ['name'],
                 },
+                {
+                    model: Inventory,
+                    attributes: ['Quantity', 'record_threshold', 'expiry_date'],
+                }
             ],
         });
         res.status(200).json({ medications });
@@ -36,6 +55,10 @@ const getMedicationById = async (req, res) => {
                     model: Category,
                     attributes: ['name'],
                 },
+                {
+                    model: Inventory,
+                    attributes: ['Quantity', 'record_threshold', 'expiry_date'],
+                }
             ],
         });
         if (medication) {
@@ -69,6 +92,9 @@ const deleteMedication = async (req, res) => {
         const { id } = req.params;
         const deleted = await Medication.destroy({
             where: { id: id }
+        });
+        const deletedInventory = await Inventory.destroy({
+            where: { medication_id: id }
         });
         if (deleted) {
             return res.status(204).json({msg: "Medication deleted"});

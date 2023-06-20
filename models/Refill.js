@@ -23,6 +23,8 @@ const Refill = sequelize.define('refill', {
   },
 });
 
+Patient.hasOne(Refill, { foreignKey: 'patient_id' });
+
 Refill.belongsTo(Prescription, {
   foreignKey: 'prescription_id',
 });

@@ -16,6 +16,7 @@ const UserPhone = sequelize.define('user_phone', {
 });
 this.primaryKeyAttributes=['user_id', 'phone'];
 
+User.hasOne(UserPhone, { foreignKey: 'user_id' }); 
 UserPhone.belongsTo(User, {
   foreignKey: 'user_id',
 });

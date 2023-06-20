@@ -6,7 +6,7 @@ const Role = require('../models/Role');
 
 const createUser = async (req, res) => {
     try {
-        const user = await User.create(req.body);
+        const user = await User.create(req.body.user);
         const phone = await UserPhone.create({
             phone: req.body.phone,
             user_id: user.user_id,
@@ -20,6 +20,7 @@ const createUser = async (req, res) => {
                 },
             ],
         });
+        res.status(201).json({ newUser });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

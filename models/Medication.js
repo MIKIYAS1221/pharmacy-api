@@ -38,6 +38,8 @@ const Medication = sequelize.define('medication', {
   },
 });
 
+Medication.hasOne(Category, { foreignKey: 'category_id' });
+
 Medication.belongsTo(Category, {
   foreignKey: 'category_id',
 });

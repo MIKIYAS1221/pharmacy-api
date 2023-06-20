@@ -3,6 +3,7 @@ const app = express();
 const sequelize = require('./config/database');
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors');
 
 // Import all models dynamically
 const modelsPath = path.join(__dirname, 'models');
@@ -13,6 +14,7 @@ fs.readdirSync(modelsPath).forEach(file => {
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Add other routes...
 app.use('/roles', require('./routes/roleRoutes'));
@@ -23,6 +25,7 @@ app.use('/sales',require('./routes/saleRoutes'));
 app.use('/purchaseorders',require('./routes/purchaseOrderRoutes'));
 app.use('/patients',require('./routes/patientRoutes'));
 app.use('/suppliers',require('./routes/supplierRoutes'));
+app.use('/allNumber',require('./routes/allNumberRoutes'));
 
 // Start the server
 const PORT = process.env.PORT || 5000;

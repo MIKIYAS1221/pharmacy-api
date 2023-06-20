@@ -26,6 +26,8 @@ const Inventory = sequelize.define('inventory', {
     },
 });
 
+Medication.hasOne(Inventory, { foreignKey: 'medication_id' });
+
 //foreign key
 Inventory.belongsTo(Medication, { foreignKey: 'medication_id' });
 
